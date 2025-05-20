@@ -1,10 +1,12 @@
 import React, { use } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Register = () => {
+    const navigate = useNavigate();
 
-    const {createUser , setUser} = use(AuthContext);
+    const {createUser , setUser , updateUser} = use(AuthContext);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -17,14 +19,28 @@ const Register = () => {
 
     console.log({ name, email, photoURL, password });
 
-    createUser(email , password)
-    .then(result => {
+    createUser(email, password)
+      .then((result) => {
         const user = result.user;
-        setUser(user);
-    })
-    .catch(error => {
-        console.log(error);
-    })
+
+        updateUser({ displayName: name, photoURL: photoURL })
+          .then(() => {
+            setUser({ ...user, displayName: name, photoURL: photoURL });
+            navigate("/");
+          })
+          .catch((error) => {
+            console.log(error)
+            setUser(user);
+          });
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+          footer: '<a href="#">Why do I have this issue?</a>',
+        });
+      });
   };
 
   return (

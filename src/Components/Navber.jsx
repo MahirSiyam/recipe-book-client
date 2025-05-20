@@ -4,10 +4,9 @@ import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
 
 const Navber = () => {
-    
-    const {user , logOut} = use(AuthContext);
+  const { user, logOut } = use(AuthContext);
 
-    const handleLogOut = () => {
+  const handleLogOut = () => {
     logOut()
       .then(() => {
         Swal.fire({
@@ -90,9 +89,6 @@ const Navber = () => {
         </ul>
       </div>
       <div className="navbar-end gap-2">
-
-        {/* <h2>{user && user.email}</h2> */}
-
         <label className="swap swap-rotate mr-2">
           <input type="checkbox" className="theme-controller" value="dark" />
           <svg
@@ -102,7 +98,7 @@ const Navber = () => {
           >
             <path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z" />
           </svg>
-          
+
           <svg
             className="swap-off fill-current w-6 h-6"
             xmlns="http://www.w3.org/2000/svg"
@@ -112,35 +108,44 @@ const Navber = () => {
           </svg>
         </label>
 
-        <div className="tooltip tooltip-bottom" data-tip={user ? user.email : ""}>
-          <div className="avatar cursor-pointer">
-            <div className="w-13 rounded-full">
-              <img src={user ? user.photoURL : "https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?semt=ais_hybrid&w=740"} alt="" />
+        {user ? (
+          <div className="dropdown dropdown-end tooltip tooltip-bottom mr-4" data-tip={user ? user.email : ""}>
+            <div tabIndex={0} role="button" className="avatar cursor-pointer">
+              <div className="w-13 rounded-full">
+                <img 
+                  src={user.photoURL || "https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?semt=ais_hybrid&w=740"} 
+                  alt="User avatar"
+                />
+              </div>
             </div>
+            <ul tabIndex={0} className="dropdown-content z-10 menu p-2 shadow bg-base-100 rounded-box w-62 mt-4">
+              {user.email && (
+                <li className="p-2 text-sm font-medium text-gray-600">{user.email}</li>
+              )}
+              <li>
+                <button
+                  onClick={handleLogOut} 
+                  className="text-red-500 font-bold btn"
+                >
+                  Logout
+                </button>
+              </li>
+            </ul>
           </div>
-        </div>
-        
-        {/* <Link to={`/auth/login`} className="btn">Login</Link>
-
-        <Link to={`/auth/register`} className="btn">Register</Link> */}
-
-            {user ? (
-          <button
-            onClick={handleLogOut}
-            className="btn bg-orange-500 border-0 shadow-none font-bold text-gray-900"
-            S
-          >
-            Logout
-          </button>
         ) : (
-          <Link
-            to={`/auth/login`}
-            className="btn bg-orange-500 border-0 shadow-none font-bold text-gray-900"
-          >
-            Login
-          </Link>
-        )}
+          <div>
+            <Link
+              to={`/auth/login`}
+              className="btn bg-orange-500 border-0 shadow-none font-bold text-gray-900 mr-2"
+            >
+              Login
+            </Link>
 
+            <Link to={`/auth/register`} className="btn">
+              Register
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
