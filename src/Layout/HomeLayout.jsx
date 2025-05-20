@@ -9,8 +9,8 @@ const HomeLayout = () => {
       <div className="w-11/12 mx-auto mb-2">
         <Navber></Navber>
         <Outlet></Outlet>
-        <Footer></Footer>
       </div>
+        <Footer></Footer>
     </div>
   );
 };

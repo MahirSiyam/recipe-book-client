@@ -5,6 +5,10 @@ import AddRecipes from "../Pages/AddRecipes";
 import AllRecipes from "../Pages/allRecipes";
 import MyRecipes from "../Pages/MyRecipes";
 import ErrorPage from "../Pages/ErrorPage";
+import Login from "../Pages/Login";
+import Register from "../Pages/Register";
+import AuthLayout from "../Layout/AuthLayout";
+import PrivateProvider from "../Provider/PrivateProvider";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +25,9 @@ const router = createBrowserRouter([
         },
         {
             path: '/allrecipes',
-            element: <AllRecipes></AllRecipes>
+            element: <PrivateProvider>
+                <AllRecipes></AllRecipes>
+            </PrivateProvider>
         },
         {
             path: '/myrecipes',
@@ -33,6 +39,20 @@ const router = createBrowserRouter([
         }
     ]
   },
+  {
+    path: '/auth',
+    element: <AuthLayout></AuthLayout>,
+    children: [
+        {
+            path: '/auth/login',
+            element: <Login></Login>
+        },
+        {
+            path: '/auth/register',
+            element: <Register></Register>
+        }
+    ]
+  }
 ]);
 
 export default router;

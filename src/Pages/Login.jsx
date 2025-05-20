@@ -1,0 +1,88 @@
+import React, { use } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
+import { AuthContext } from "../Provider/AuthProvider";
+import Swal from "sweetalert2";
+
+const Login = () => {
+  const { logIn } = use(AuthContext);
+  const location = useLocation();
+  //   console.log(location);
+  const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    console.log({ email, password });
+
+    logIn(email, password)
+      .then(() => {
+        Swal.fire({
+          title: "Login Successfully!",
+          icon: "success",
+          draggable: true,
+        });
+        // Navigate(`${location.state ? location.state : "/"}`);
+        navigate(`${location.state ? location.state : "/"}`);
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+          footer: '<a href="#">Why do I have this issue?</a>',
+        });
+      });
+  };
+
+  return (
+    <div className="flex mb-5 flex-col md:flex-row justify-center items-center mt-10 md:mt-20 px-4">
+      <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+        <h1 className="font-bold text-2xl text-center">Login now!</h1>
+        <div className="card-body">
+          <form onSubmit={handleLogin} className="fieldset">
+            {/* email */}
+            <label className="label">Email</label>
+            <input
+              type="email"
+              name="email"
+              className="input"
+              placeholder="Email"
+              required
+            />
+
+            {/* password */}
+            <label className="label">Password</label>
+            <input
+              type="password"
+              name="password"
+              className="input"
+              placeholder="Password"
+              minLength="8"
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+              title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
+              required
+            />
+            <div>
+              <a className="link link-hover">Forgot password?</a>
+            </div>
+            <button type="submit" className="btn btn-neutral mt-4">
+              Login
+            </button>
+            <p className="text-center font-bold pt-5">
+              Don't have an account? Click{" "}
+              <Link to={`/auth/register`} className="text-orange-500">
+                Register
+              </Link>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Login;
