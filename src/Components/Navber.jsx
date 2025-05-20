@@ -74,16 +74,16 @@ const Navber = () => {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-          <li>
+          <li className="mr-2">
             <NavLink to={`/`}>Home</NavLink>
           </li>
-          <li>
+          <li className="mr-2">
             <NavLink to={`/allrecipes`}>All Recipes</NavLink>
           </li>
-          <li>
+          <li className="mr-2">
             <NavLink to={`/addrecipes`}>Add Recipes</NavLink>
           </li>
-          <li>
+          <li className="mr-2">
             <NavLink to={`/myrecipes`}>My Recipes</NavLink>
           </li>
         </ul>

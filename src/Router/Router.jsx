@@ -9,50 +9,63 @@ import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import AuthLayout from "../Layout/AuthLayout";
 import PrivateProvider from "../Provider/PrivateProvider";
+import RecipeProvider from "../Provider/RecipeProvider";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout></HomeLayout>,
     children: [
-        {
-            path: '/',
-            element: <Home></Home>
-        },
-        {
-            path: '/addrecipes',
-            element: <AddRecipes></AddRecipes>
-        },
-        {
-            path: '/allrecipes',
-            element: <PrivateProvider>
-                <AllRecipes></AllRecipes>
-            </PrivateProvider>
-        },
-        {
-            path: '/myrecipes',
-            element: <MyRecipes></MyRecipes>
-        },
-        {
-            path: '/*',
-            element: <ErrorPage></ErrorPage>
-        }
-    ]
+      {
+        path: "/",
+        loader: () => fetch('http://localhost:3000/recipes'),
+        element: <RecipeProvider>
+            <Home></Home>
+        </RecipeProvider>,
+      },
+      {
+        path: "/addrecipes",
+        element: (
+          <PrivateProvider>
+            <AddRecipes></AddRecipes>
+          </PrivateProvider>
+        ),
+      },
+      {
+        path: "/allrecipes",
+        loader: () => fetch('http://localhost:3000/recipes'),
+        element: <RecipeProvider>
+            <AllRecipes></AllRecipes>
+        </RecipeProvider>
+      },
+      {
+        path: "/myrecipes",
+        element: (
+          <PrivateProvider>
+            <MyRecipes></MyRecipes>
+          </PrivateProvider>
+        ),
+      },
+      {
+        path: "/*",
+        element: <ErrorPage></ErrorPage>,
+      },
+    ],
   },
   {
-    path: '/auth',
+    path: "/auth",
     element: <AuthLayout></AuthLayout>,
     children: [
-        {
-            path: '/auth/login',
-            element: <Login></Login>
-        },
-        {
-            path: '/auth/register',
-            element: <Register></Register>
-        }
-    ]
-  }
+      {
+        path: "/auth/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/auth/register",
+        element: <Register></Register>,
+      },
+    ],
+  },
 ]);
 
 export default router;
