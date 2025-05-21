@@ -1,6 +1,7 @@
 import React, { use } from "react";
 import { RecipeContext } from "../Provider/RecipeProvider";
-import RecipeCard from "../Components/RecipeCard";
+// import RecipeCard from "../Components/RecipeCard";
+import AllRecipeCard from "../Components/AllRecipeCard";
 
 const Home = () => {
 
@@ -30,9 +31,9 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 p-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 p-3">
         {
-            recipes.map(recipe => <RecipeCard recipe = {recipe}></RecipeCard>
+            recipes.map(recipe => <AllRecipeCard recipe = {recipe}></AllRecipeCard>
             )
         }
       </div>

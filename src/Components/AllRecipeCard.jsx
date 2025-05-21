@@ -1,12 +1,11 @@
-import React from "react";
-import { Link } from "react-router";
+import React from 'react';
+import { Link } from 'react-router';
 
-const RecipeCard = ({ recipe }) => {
-  const { _id , photo, title, ingredients, cuisineType, prepTime } = recipe;
-
-  return (
-
-<div className=" p-4 shadow-md border-2 border-gray-100 rounded-xl">
+const AllRecipeCard = ({recipe}) => {
+      const { _id , photo, title, ingredients, cuisineType, prepTime } = recipe;
+    return (
+        <div>
+            <div className=" p-4 shadow-md border-2 border-gray-100 rounded-xl">
 	<div className="flex justify-between pb-4 border-bottom">
 	</div>
 	<div className="space-y-4">
@@ -24,13 +23,12 @@ const RecipeCard = ({ recipe }) => {
 		</div>
     <div className="flex justify-between mt-3">
       <Link to={`/recipe-details/${_id}`} className="btn">More Details</Link>
-      <button className="btn">Like</button>
     </div>
     </div>
 	</div>
 </div>
-
-  );
+        </div>
+    );
 };
 
-export default RecipeCard;
+export default AllRecipeCard;

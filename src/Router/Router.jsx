@@ -10,6 +10,7 @@ import Register from "../Pages/Register";
 import AuthLayout from "../Layout/AuthLayout";
 import PrivateProvider from "../Provider/PrivateProvider";
 import RecipeProvider from "../Provider/RecipeProvider";
+import RecipeDetails from "../Components/RecipeDetails";
 
 const router = createBrowserRouter([
   {
@@ -39,10 +40,18 @@ const router = createBrowserRouter([
         </RecipeProvider>
       },
       {
+        path: "/recipe-details/:id",
+        loader: ({params}) => fetch(`http://localhost:3000/recipes/${params.id}`),
+        element: <RecipeDetails></RecipeDetails>
+      },
+      {
         path: "/myrecipes",
+        loader: () => fetch('http://localhost:3000/recipes'),
         element: (
           <PrivateProvider>
-            <MyRecipes></MyRecipes>
+            <RecipeProvider>
+              <MyRecipes></MyRecipes>
+            </RecipeProvider>
           </PrivateProvider>
         ),
       },
