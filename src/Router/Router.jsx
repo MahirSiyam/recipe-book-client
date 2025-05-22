@@ -11,67 +11,90 @@ import AuthLayout from "../Layout/AuthLayout";
 import PrivateProvider from "../Provider/PrivateProvider";
 import RecipeProvider from "../Provider/RecipeProvider";
 import RecipeDetails from "../Components/RecipeDetails";
+import UpdateRecipe from "../Components/UpdateRecipe";
+import About from "../Components/About";
+import TipsAndTricks from "../Components/TipsAndTricks";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomeLayout></HomeLayout>,
+    element: <HomeLayout />,
     children: [
       {
         path: "/",
-        loader: () => fetch('http://localhost:3000/recipes'),
-        element: <RecipeProvider>
-            <Home></Home>
-        </RecipeProvider>,
+        loader: () => fetch("http://localhost:3000/recipes"),
+        element: (
+          <RecipeProvider>
+            <Home />
+          </RecipeProvider>
+        ),
       },
       {
         path: "/addrecipes",
         element: (
           <PrivateProvider>
-            <AddRecipes></AddRecipes>
+            <AddRecipes />
           </PrivateProvider>
         ),
       },
       {
         path: "/allrecipes",
-        loader: () => fetch('http://localhost:3000/recipes'),
-        element: <RecipeProvider>
-            <AllRecipes></AllRecipes>
-        </RecipeProvider>
+        loader: () => fetch("http://localhost:3000/recipes"),
+        element: (
+          <RecipeProvider>
+            <AllRecipes />
+          </RecipeProvider>
+        ),
       },
       {
         path: "/recipe-details/:id",
-        loader: ({params}) => fetch(`http://localhost:3000/recipes/${params.id}`),
-        element: <RecipeDetails></RecipeDetails>
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/recipes/${params.id}`),
+        element: <RecipeDetails />,
       },
       {
         path: "/myrecipes",
-        loader: () => fetch('http://localhost:3000/recipes'),
+        loader: () => fetch("http://localhost:3000/recipes"),
         element: (
           <PrivateProvider>
             <RecipeProvider>
-              <MyRecipes></MyRecipes>
+              <MyRecipes />
             </RecipeProvider>
           </PrivateProvider>
         ),
       },
       {
+        path: '/update-recipes',
+        loader: ({params}) => fetch(`http://localhost:3000/recipes/${params.id}`),
+        element: <RecipeProvider>
+          <UpdateRecipe></UpdateRecipe>
+        </RecipeProvider>
+      },
+      {
+        path: '/about',
+        element: <About></About>
+      },
+      {
+        path: '/tips-and-tricks',
+        element: <TipsAndTricks></TipsAndTricks>
+      },
+      {
         path: "/*",
-        element: <ErrorPage></ErrorPage>,
+        element: <ErrorPage />,
       },
     ],
   },
   {
     path: "/auth",
-    element: <AuthLayout></AuthLayout>,
+    element: <AuthLayout />,
     children: [
       {
         path: "/auth/login",
-        element: <Login></Login>,
+        element: <Login />,
       },
       {
         path: "/auth/register",
-        element: <Register></Register>,
+        element: <Register />,
       },
     ],
   },

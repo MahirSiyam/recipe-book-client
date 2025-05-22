@@ -10,7 +10,7 @@ const AllRecipeCard = ({recipe}) => {
 	</div>
 	<div className="space-y-4">
 		<div className="space-y-2">
-			<img src={photo} alt="" className="block object-cover object-center w-full rounded-md h-70 " />
+			<img src={photo} alt="" className="block object-cover object-center w-full rounded-md h-60 " />
 		</div>
 		<div>
       <div className="space-y-3">

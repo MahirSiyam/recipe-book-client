@@ -61,6 +61,12 @@ const Navber = () => {
             <li>
               <NavLink to={`/myrecipes`}>My Recipes</NavLink>
             </li>
+            <li className="mr-2">
+            <NavLink to={`/tips-and-tricks`}>Tips & Tricks</NavLink>
+          </li>
+            <li>
+              <NavLink to={`/about`}>About</NavLink>
+            </li>
           </ul>
         </div>
         <div className="flex items-center justify-center gap-2">
@@ -86,6 +92,12 @@ const Navber = () => {
           <li className="mr-2">
             <NavLink to={`/myrecipes`}>My Recipes</NavLink>
           </li>
+          <li className="mr-2">
+            <NavLink to={`/tips-and-tricks`}>Tips & Tricks</NavLink>
+          </li>
+          <li>
+              <NavLink to={`/about`}>About</NavLink>
+            </li>
         </ul>
       </div>
       <div className="navbar-end gap-2">

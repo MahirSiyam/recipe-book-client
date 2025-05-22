@@ -1,11 +1,10 @@
-import React, { use } from "react";
+import React from "react";
 import { RecipeContext } from "../Provider/RecipeProvider";
-// import RecipeCard from "../Components/RecipeCard";
 import AllRecipeCard from "../Components/AllRecipeCard";
+import { Typewriter } from 'react-simple-typewriter';
 
 const Home = () => {
-
-    const {recipes} = use(RecipeContext);
+  const { recipes } = React.useContext(RecipeContext);
 
   return (
     <div>
@@ -20,7 +19,20 @@ const Home = () => {
         <div className="hero-content text-neutral-content text-center">
           <div className="max-w-md">
             <h1 className="mb-5 text-5xl font-bold">
-              Delicious Recipes Made Simple!
+              <Typewriter
+                words={[
+                  'Delicious Recipes Made Simple!',
+                  'Easy Cooking Guides!',
+                  'Gourmet Meals at Home!',
+                  'Culinary Inspiration!'
+                ]}
+                loop={true}
+                cursor
+                cursorStyle="|"
+                typeSpeed={70}
+                deleteSpeed={50}
+                delaySpeed={1000}
+              />
             </h1>
             <p className="mb-5">
               "Transform everyday ingredients into gourmet meals. Step-by-step
@@ -32,12 +44,10 @@ const Home = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 p-3">
-        {
-            recipes.map(recipe => <AllRecipeCard recipe = {recipe}></AllRecipeCard>
-            )
-        }
+        {recipes.map((recipe, index) => (
+          <AllRecipeCard key={index} recipe={recipe} />
+        ))}
       </div>
-
     </div>
   );
 };
