@@ -1,10 +1,12 @@
-import React from "react";
-import { RecipeContext } from "../Provider/RecipeProvider";
+import React, { use } from "react";
 import AllRecipeCard from "../Components/AllRecipeCard";
 import { Typewriter } from 'react-simple-typewriter';
+import { RecipeContext } from "../Provider/RecipeProvider";
 
 const Home = () => {
-  const { recipes } = React.useContext(RecipeContext);
+  const { recipes } = use(RecipeContext);
+
+  console.log(recipes);
 
   return (
     <div>

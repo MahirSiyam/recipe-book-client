@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import UpdateRecipe from "./UpdateRecipe";
-import { Link } from "react-router";
 
-const MyRecipeCard = ({ recipe, onDelete = () => {} }) => {
+const MyRecipeCard = ({ recipe: initialRecipe, onDelete = () => {} }) => {
   const [isDeleted, setIsDeleted] = useState(false);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [recipe, setRecipe] = useState(initialRecipe); 
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -20,107 +21,84 @@ const MyRecipeCard = ({ recipe, onDelete = () => {} }) => {
         fetch(`http://localhost:3000/recipes/${id}`, {
           method: "DELETE",
         })
-          .then((res) => {
-            if (!res.ok) {
-              throw new Error("Failed to delete recipe");
-            }
-            return res.json();
-          })
+          .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount > 0) {
               setIsDeleted(true);
               onDelete(id);
-              Swal.fire({
-                title: "Deleted!",
-                text: "Your recipe has been deleted.",
-                icon: "success",
-              });
+              Swal.fire("Deleted!", "Your recipe has been deleted.", "success");
             }
           })
           .catch((error) => {
-            Swal.fire({
-              title: "Error!",
-              text: error.message,
-              icon: "error",
-            });
+            Swal.fire("Error!", error.message, "error");
           });
       }
     });
   };
 
-  if (isDeleted) {
-    return null;
-  }
+  const handleUpdate = (updatedData) => {
+    fetch(`http://localhost:3000/recipes/${recipe._id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          setRecipe(updatedData); 
+          Swal.fire("Updated!", "Your recipe has been updated.", "success");
+          setShowUpdateModal(false);
+        } else {
+          Swal.fire("No Change", "No update was made.", "info");
+        }
+      })
+      .catch((error) => {
+        Swal.fire("Error!", error.message, "error");
+      });
+  };
 
-  const {
-    _id,
-    photo,
-    title,
-    ingredients,
-    instructions,
-    cuisineType,
-    prepTime,
-    category,
-    categories,
-  } = recipe;
+  if (isDeleted) return null;
 
+  const { _id, photo, title, ingredients, instructions, cuisineType, prepTime, category, categories } = recipe;
 
   return (
     <div className="p-4 shadow-md border-2 border-gray-100 rounded-xl">
       <div className="space-y-4">
-        <div className="space-y-2">
-          <img
-            src={photo}
-            alt={title}
-            className="block object-cover object-center w-full rounded-md h-70"
-          />
-        </div>
-        <div className="space-y-3">
-          <h3 className="text-xl font-semibold">{title}</h3>
-          <p className="leading-snug">
-            <span className="font-bold">Ingredients:</span> {ingredients}
-          </p>
-          <p className="leading-snug">
-            <span className="font-bold">Cuisine Type:</span> {cuisineType}
-          </p>
-          <p className="leading-snug">
-            <span className="font-bold">Prep Time:</span> {prepTime} minutes
-          </p>
-          <p className="leading-snug">
-            <span className="font-bold">Instructions:</span> {instructions}
-          </p>
-          <p className="leading-snug">
-            <span className="font-bold">Category:</span> {category}
-          </p>
+        <img src={photo} alt={title} className="w-full h-70 object-cover rounded-md" />
+        <h3 className="text-xl font-semibold">{title}</h3>
+        <p className="line-clamp-3"><strong>Ingredients:</strong> {ingredients}</p>
+        <p><strong>Cuisine Type:</strong> {cuisineType}</p>
+        <p><strong>Prep Time:</strong> {prepTime} minutes</p>
+        <p className="line-clamp-3"><strong>Instructions:</strong> {instructions}</p>
+        <p><strong>Category:</strong> {category}</p>
 
-          {Array.isArray(categories) && categories.length > 0 && (
-            <div className="mt-2">
-              <p className="font-bold mb-1">Categories:</p>
-              <div className="flex flex-wrap gap-2">
-                {categories.map((cat, index) => (
-                  <span
-                    key={index}
-                    className="badge badge-outline badge-primary"
-                  >
-                    {cat}
-                  </span>
-                ))}
-              </div>
+        {Array.isArray(categories) && categories.length > 0 && (
+          <div>
+            <p className="font-bold mb-1">Categories:</p>
+            <div className="flex flex-wrap gap-2">
+              {categories.map((cat, index) => (
+                <span key={index} className="badge badge-outline badge-primary">{cat}</span>
+              ))}
             </div>
-          )}
-
-          <div className="flex flex-wrap gap-2 mt-4">
-            <Link to={`/update-recipes/${_id}`} className="btn btn-outline btn-primary">Update</Link>
-            <button
-              onClick={() => handleDelete(_id)}
-              className="btn btn-outline btn-error"
-            >
-              Delete
-            </button>
-            <button className="btn btn-outline btn-secondary">Like</button>
           </div>
+        )}
+
+        <div className="flex gap-2 mt-4">
+          <button onClick={() => setShowUpdateModal(true)} className="btn btn-outline btn-primary">Update</button>
+          <button onClick={() => handleDelete(_id)} className="btn btn-outline btn-error">Delete</button>
+          <button className="btn btn-outline btn-secondary">Like</button>
         </div>
       </div>
+
+      {showUpdateModal && (
+        <UpdateRecipe
+          recipe={recipe}
+          onClose={() => setShowUpdateModal(false)}
+          onSubmit={handleUpdate}
+        />
+      )}
     </div>
   );
 };

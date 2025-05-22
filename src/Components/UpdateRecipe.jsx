@@ -1,118 +1,87 @@
-import React from 'react';
-import { useLoaderData } from 'react-router';
+import React, { useState } from "react";
 
-const UpdateRecipe = () => {
+const UpdateRecipe = ({ recipe, onClose, onSubmit }) => {
+  const [formData, setFormData] = useState({ ...recipe });
 
-    const data = useLoaderData();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-    console.log(data);
+    // Handle category arrays as comma-separated input
+    if (name === "categories") {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value.split(",").map((item) => item.trim()),
+      }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
+  };
 
-    return (
-        <form  className="grid grid-cols-1 md:grid-cols-2 gap-5 p-5">
-      {/* Image URL */}
-      <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-        <label className="label">Image URL</label>
-        <input
-          type="text"
-          name="photo"
-          className="input w-full"
-          placeholder="Image URL"
-          required
-        />
-      </fieldset>
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(formData);
+  };
 
-      {/* Title */}
-      <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-        <label className="label">Title</label>
-        <input
-          type="text"
-          name="title"
-          className="input w-full"
-          placeholder="Recipe Title"
-          required
-        />
-      </fieldset>
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white p-6 rounded-xl max-w-lg w-full">
+        <h2 className="text-xl font-bold mb-4">Update Recipe</h2>
+        <form onSubmit={handleFormSubmit} className="space-y-3">
 
-      {/* Ingredients */}
-      <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-        <label className="label">Ingredients</label>
-        <textarea
-          name="ingredients"
-          className="textarea w-full"
-          placeholder="List ingredients separated by commas"
-          required
-        ></textarea>
-      </fieldset>
+          <label className="form-control">
+            <span className="label-text">Title</span>
+            <input type="text" name="title" value={formData.title} onChange={handleChange} className="input input-bordered w-full" />
+          </label>
 
-      {/* Instructions */}
-      <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-        <label className="label">Instructions</label>
-        <textarea
-          name="instructions"
-          className="textarea w-full"
-          placeholder="Enter cooking instructions"
-          required
-        ></textarea>
-      </fieldset>
+          <label className="form-control">
+            <span className="label-text">Photo URL</span>
+            <input type="text" name="photo" value={formData.photo} onChange={handleChange} className="input input-bordered w-full" />
+          </label>
 
-      {/* Cuisine Type */}
-      <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-        <label className="label">Cuisine Type</label>
-        <select
-          name="cuisineType"
-          className="select select-bordered w-full"
-          required
-        >
-          <option value="">Select Cuisine Type</option>
-          <option value="Italian">Italian</option>
-          <option value="Bangladeshi">Bangladeshi</option>
-          <option value="Mexican">Mexican</option>
-          <option value="Indian">Indian</option>
-          <option value="Chinese">Chinese</option>
-        </select>
-      </fieldset>
+          <label className="form-control">
+            <span className="label-text">Ingredients</span>
+            <input type="text" name="ingredients" value={formData.ingredients} onChange={handleChange} className="input input-bordered w-full" />
+          </label>
 
-      {/* Preparation Time */}
-      <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-        <label className="label">Preparation Time (minutes)</label>
-        <input
-          type="number"
-          name="prepTime"
-          className="input w-full"
-          placeholder="Preparation Time"
-          min="1"
-          required
-        />
-      </fieldset>
+          <label className="form-control">
+            <span className="label-text">Instructions</span>
+            <input type="text" name="instructions" value={formData.instructions} onChange={handleChange} className="input input-bordered w-full" />
+          </label>
 
-      {/* Categories */}
-      <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4 md:col-span-2">
-        <label className="label">Categories</label>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-          {["Breakfast", "Lunch", "Dinner", "Dessert", "Vegan"].map((category) => (
-            <div key={category} className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                name="category"
-                id={category.toLowerCase()}
-                value={category}
-                className="checkbox checkbox-primary"
-              />
-              <label htmlFor={category.toLowerCase()} className="cursor-pointer">
-                {category}
-              </label>
-            </div>
-          ))}
-        </div>
-      </fieldset>
+          <label className="form-control">
+            <span className="label-text">Cuisine Type</span>
+            <input type="text" name="cuisineType" value={formData.cuisineType} onChange={handleChange} className="input input-bordered w-full" />
+          </label>
 
-      <div className="md:col-span-2">
-        <button type="submit" className="btn btn-primary w-full">
-          Update Recipe
-        </button>
+          <label className="form-control">
+            <span className="label-text">Prep Time (minutes)</span>
+            <input type="number" name="prepTime" value={formData.prepTime} onChange={handleChange} className="input input-bordered w-full" />
+          </label>
+
+          <label className="form-control">
+            <span className="label-text">Category</span>
+            <input type="text" name="category" value={formData.category} onChange={handleChange} className="input input-bordered w-full" />
+          </label>
+
+          <label className="form-control">
+            <span className="label-text">Categories (comma-separated)</span>
+            <input
+              type="text"
+              name="categories"
+              value={Array.isArray(formData.categories) ? formData.categories.join(", ") : ""}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+            />
+          </label>
+
+          <div className="flex gap-2 mt-4">
+            <button type="submit" className="btn btn-primary">Save</button>
+            <button type="button" onClick={onClose} className="btn btn-ghost">Cancel</button>
+          </div>
+        </form>
       </div>
-    </form>
-    );
+    </div>
+  );
 };
 
 export default UpdateRecipe;

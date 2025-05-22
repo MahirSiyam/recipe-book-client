@@ -25,7 +25,7 @@ const AddRecipes = () => {
 
     console.log('Submitting recipe:', recipeWithCategories); // Debug log
 
-    fetch("http://localhost:3000/recipes", {
+    fetch("https://recipe-book-server-one.vercel.app/recipes", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -63,6 +63,33 @@ const AddRecipes = () => {
 
   return (
     <form onSubmit={handleAllRecipe} className="grid grid-cols-1 md:grid-cols-2 gap-5 p-5">
+      
+
+{/* Title */}
+      <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
+        <label className="label">Name</label>
+        <input
+          type="text"
+          name="name"
+          className="input w-full"
+          placeholder="Enter name"
+          required
+        />
+      </fieldset>
+
+      {/* Title */}
+      <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
+        <label className="label">Email</label>
+        <input
+          type="email"
+          name="email"
+          className="input w-full"
+          placeholder="Enter email"
+          required
+        />
+      </fieldset>
+
+
       {/* Image URL */}
       <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
         <label className="label">Image URL</label>
@@ -74,6 +101,7 @@ const AddRecipes = () => {
           required
         />
       </fieldset>
+
 
       {/* Title */}
       <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
