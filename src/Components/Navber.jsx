@@ -125,7 +125,7 @@ const Navber = () => {
             <div tabIndex={0} role="button" className="avatar cursor-pointer">
               <div className="w-13 rounded-full">
                 <img 
-                  src={user.photoURL || "https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?semt=ais_hybrid&w=740"} 
+                  src={user.photoURL} 
                   alt="User avatar"
                 />
               </div>
@@ -145,7 +145,9 @@ const Navber = () => {
             </ul>
           </div>
         ) : (
-          <div>
+          
+          <div className="flex items-center">
+          
             <Link
               to={`/auth/login`}
               className="btn bg-orange-500 border-0 shadow-none font-bold text-gray-900 mr-2"

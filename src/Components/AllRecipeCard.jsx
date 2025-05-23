@@ -5,7 +5,7 @@ const AllRecipeCard = ({ recipe }) => {
   const { _id, photo, title, ingredients, cuisineType, prepTime } = recipe;
 
   return (
-    <div className="p-4 shadow-md border border-gray-200 rounded-xl max-w-sm w-full mx-auto overflow-hidden">
+    <div className="p-4 shadow-md border border-gray-200 rounded-xl w-full mx-auto overflow-hidden">
       <div className="space-y-4">
         {/* Image */}
         <img

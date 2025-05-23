@@ -18,7 +18,7 @@ const MyRecipeCard = ({ recipe: initialRecipe, onDelete = () => {} }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/recipes/${id}`, {
+        fetch(`https://recipe-book-server-one.vercel.app/recipes/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -37,7 +37,7 @@ const MyRecipeCard = ({ recipe: initialRecipe, onDelete = () => {} }) => {
   };
 
   const handleUpdate = (updatedData) => {
-    fetch(`http://localhost:3000/recipes/${recipe._id}`, {
+    fetch(`https://recipe-book-server-one.vercel.app/recipes/${recipe._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
