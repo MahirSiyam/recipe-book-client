@@ -5,6 +5,7 @@
 A modern, responsive **Recipe Book Client** built with React.  
 Discover, add, update, and manage your favorite recipes with ease.
 
+Live Website: https://talknest-ab7a1.web.app/myBookedTutors](https://recipe-book-app-8135e.web.app/
 ---
 
 ## 🚀 Features
@@ -26,12 +27,6 @@ Discover, add, update, and manage your favorite recipes with ease.
 - Tailwind CSS / CSS3  
 - Axios for API calls  
 - LocalStorage for temporary data (if used)  
-
----
-
-## 🎨 Demo
-
-Check out the live demo here: [Your Live Site URL](https://your-live-site-link.com](https://recipe-book-app-8135e.web.app)  
 
 ---
 
