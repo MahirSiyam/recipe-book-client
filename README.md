@@ -1,12 +1,46 @@
-# React + Vite
+# 🍳 Cooking - Recipe Book Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Cooking Banner](https://user-images.githubusercontent.com/your-image-link-here) <!-- Replace with your banner or project image -->
 
-Currently, two official plugins are available:
+A modern, responsive **Recipe Book Client** built with React.  
+Discover, add, update, and manage your favorite recipes with ease.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Browse and search delicious recipes
+- Add your own recipes with images and details
+- Update or delete recipes you created
+- Like recipes and see the most popular ones
+- Responsive design for all devices
+- User authentication and profile management
+
+---
+
+## 🛠️ Tech Stack
+
+- React  
+- React Router  
+- Context API / Redux (if applicable)  
+- Tailwind CSS / CSS3  
+- Axios for API calls  
+- LocalStorage for temporary data (if used)  
+
+---
+
+## 🎨 Demo
+
+Check out the live demo here: [Your Live Site URL](https://your-live-site-link.com)  
+
+---
+
+## 📁 Project Structure
+
+```plaintext
+/src
+  /components     # Reusable UI components
+  /pages          # Page-level components
+  /context        # React Context for state management
+  /services       # API calls
+  /assets         # Images, icons, etc.
