@@ -1,6 +1,6 @@
 # 🍳 Cooking - Recipe Book Client
 
-![Cooking Banner]([https://user-images.githubusercontent.com/your-image-link-here](https://i.ibb.co/TV2xgVJ/Screenshot-2025-06-25-032643.png)) <!-- Replace with your banner or project image -->
+![Cooking Banner]((https://i.ibb.co/TV2xgVJ/Screenshot-2025-06-25-032643.png)) <!-- Replace with your banner or project image -->
 
 A modern, responsive **Recipe Book Client** built with React.  
 Discover, add, update, and manage your favorite recipes with ease.
